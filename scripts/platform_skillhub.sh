@@ -172,7 +172,20 @@ EOF
 }
 EOF
   else
-    cat <<EOF
+    # Check if error is "version already exists" — treat as success for mirror
+    if echo "$pub_output" | grep -qi "already exists"; then
+      cat <<EOF
+{
+  "module": "platform_skillhub",
+  "function": "publish",
+  "status": "ok",
+  "detail": "版本已存在于 ClawHub，SkillHub 将自动同步",
+  "skillhub_url": "$SKILLHUB_BASE_URL",
+  "sync_note": "SkillHub 镜像同步通常需要几分钟到几小时"
+}
+EOF
+    else
+      cat <<EOF
 {
   "module": "platform_skillhub",
   "function": "publish",
@@ -181,7 +194,8 @@ EOF
   "clawhub_output": "$(echo "$pub_output" | head -5 | tr '\n' ' ' | sed 's/"/\\"/g')"
 }
 EOF
-    return 1
+      return 1
+    fi
   fi
 }
 
