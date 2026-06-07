@@ -153,10 +153,9 @@ EOF
   # Publish to ClawHub (which triggers SkillHub sync)
   _pub_log "  SkillHub 是 ClawHub 镜像，正在发布到 ClawHub..."
 
-  local clawhub_args=("publish" "$tarball_path")
+  local clawhub_args=("publish" "$skill_path")
   [[ -n "$slug" ]] && clawhub_args+=("--slug" "$slug")
   [[ -n "$version" ]] && clawhub_args+=("--version" "$version")
-  [[ "$auto_yes" == "true" ]] && clawhub_args+=("--yes")
 
   local pub_output
   if pub_output=$(clawhub "${clawhub_args[@]}" 2>&1); then

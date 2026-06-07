@@ -1,7 +1,7 @@
 ---
 name: "skill-publisher"
 description: "将 Agent 技能发布到多个平台：ClawHub、GitHub Releases、SkillHub CN。支持验证、打包、版本管理和一键多平台发布。"
-version: "1.2.1"
+version: "1.2.2"
 ---
 
 # Skill Publisher
