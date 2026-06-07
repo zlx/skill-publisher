@@ -122,11 +122,12 @@ cmd_publish() {
   local skill_path="${1:?Usage: skill-publisher publish <path> --to <platforms> [--yes]}"
   shift
 
-  local platforms="" auto_yes=false
+  local platforms="" auto_yes=false slug_override=""
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --to|--platform) platforms="$2"; shift 2 ;;
+      --slug)          slug_override="$2"; shift 2 ;;
       --yes|-y)        auto_yes=true; shift ;;
       *)               _pub_err "Unknown option: $1"; return 1 ;;
     esac
@@ -164,7 +165,7 @@ cmd_publish() {
   local name
   name=$(grep -m1 '^name:' "$skill_path/SKILL.md" | sed 's/^name:\s*//' | sed 's/^"\(.*\)"$/\1/' | xargs) || name="unknown-skill"
   local slug
-  slug="$name"
+  slug="${slug_override:-$name}"
 
   # Step 3: Package tarball
   _pub_log "Packaging $name@$version..."
@@ -356,7 +357,7 @@ skill-publisher — 将 Agent 技能发布到多个平台
 用法:
   skill-publisher validate <skill-path>
   skill-publisher package  <skill-path> [--output <dir>] [--version <ver>]
-  skill-publisher publish  <path> --to <platforms> [--yes]
+  skill-publisher publish  <path> --to <platforms> [--slug <slug>] [--yes]
   skill-publisher version  <skill-path> [--bump patch|minor|major] [--set <ver>]
   skill-publisher status   <skill-path>
   skill-publisher platforms list
