@@ -113,12 +113,12 @@ publish <path> --to <platforms>
 - **upload:** `cli_tool` → `gh release create`
 - 自动创建 tag，附带 tarball
 
-### 🟠 SkillHub CN（国内 Skills 社区）
+### 🟠 SkillHub CN（腾讯云 ClawHub 镜像）
 
-- **auth:** `api_key`（`SKILLHUB_TOKEN` 环境变量）或 `web_login`（浏览器登录）
-- **upload:** `http_api`（POST tarball 到 `https://skillhub.cn/api/...`）
-- 专为中国用户优化
-- **TODO:** 待补充具体 API 端点和文档（skillhub.cn 目前无公开 API 文档）
+- **地址:** `skillhub.cloud.tencent.com`
+- **模式:** `mirror`（ClawHub 镜像，发布到 ClawHub 后自动同步）
+- **auth:** 无需单独认证，通过 ClawHub 发布即可
+- 专为中国用户优化，国内高速下载
 
 ## 第三方扩展
 
@@ -130,7 +130,7 @@ publish <path> --to <platforms>
 | Gitee | ssh_key | cli_tool | git push |
 | 自建 Registry | api_key | http_api | POST tarball |
 | 飞书云盘 | oauth | files | lark-cli 逐文件上传 |
-| ClawHub Mirror | api_key | http_api | 镜像站 |
+| ClawHub Mirror | none | mirror | 自动同步，无需单独发布 |
 
 ## 命令
 
