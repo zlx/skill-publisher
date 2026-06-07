@@ -130,7 +130,11 @@ EOF
   # Extract version from tarball name for tag
   local tarball_name
   tarball_name=$(basename "$tarball_path")
-  local tag="v$(echo "$tarball_name" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+([-.][a-zA-Z0-9.]+)?' | head -1)" || tag="latest"
+  local version_str
+  version_str=$(echo "$tarball_name" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?' | head -1) || version_str=""
+  # Strip any trailing .tar.gz that might have been captured
+  version_str=${version_str%.tar.gz}
+  local tag="v${version_str:-latest}"
 
   # Create release
   local release_output
